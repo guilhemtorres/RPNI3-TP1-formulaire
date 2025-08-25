@@ -1,0 +1,24 @@
+{
+  "name": "rpni3-tp1-formulaire",
+  "version": "1.0.0",
+  "description": "formulaire tp1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "sass --watch src/scss:public/css",
+    "build": "sass src/scss:public/css --style=expanded --source-map"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guilhemtorres/RPNI3-TP1-formulaire.git"
+  },
+  "author": "guilhemtorres",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guilhemtorres/RPNI3-TP1-formulaire/issues"
+  },
+  "homepage": "https://github.com/guilhemtorres/RPNI3-TP1-formulaire#readme",
+  "devDependencies": {
+    "normalize.scss": "^0.1.0"
+  }
+}
