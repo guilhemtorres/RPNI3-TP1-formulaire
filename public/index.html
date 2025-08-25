@@ -3,12 +3,95 @@
 
 <head>
     <meta charset="utf-8">
-
+    <title>Dons - Gar'O Gazelles</title>
     <link rel="stylesheet" href="css/styles.css">
+     <meta name="description" content="La longipontaine une course solidaire.">
+    <meta name="key words" content="course, running, solidaire, association, marche">
+    <link rel="shortcut icon" href="image/logo_sans_p.svg" type="image/x-icon">
 </head>
 
+<header>
+<img src="image/logo_final.svg" alt="logo de Gar'O Gazelles" width="100">
+</header>
+
 <body>
+    <h1>Formulaire de don</h1>
+    <form action="get">
+    <h2>Étape 1</h2>
+    <fieldset class="montant-don">
+        <legend>Montant du don</legend>
+        <input type="radio" name="duree" id="temps1">
+        <label for="temps1">Don unique</label>
+        <input type="radio" name="duree" id="temps2">
+        <label for="temps2">Mensuelle</label>
+        <br>
+        <input type="radio" name="montant" id="prix1">
+        <label for="prix1">10$</label>
+        <input type="radio" name="montant" id="prix2">
+        <label for="prix2">20$</label>
+        <input type="radio" name="montant" id="prix3">
+        <label for="prix3">50$</label>
+        <input type="radio" name="montant" id="prix4">
+        <label for="prix4">100$</label>
+        <input type="radio" name="montant" id="prix5">
+        <label for="prix5">150$</label>
+        <input type="radio" name="montant" id="prix6">
+        <label for="prix6">200$</label>
+        <br>
+        <label for="prix7">Autre montant :</label>
+        <input type="number" name="montant" id="prix7">
+    </fieldset>
+    <a href="#">Suivant</a>
+
+    <h2>Étape 2</h2>
+    <fieldset class="informations-personnelles">
+        <legend>Informations personnelles</legend>
+        <!-- <label for="nom">Nom :</label> -->
+        <input type="text" id="nom" name="nom" placeholder="Nom" required>
+        <!-- <label for="prenom">Prénom :</label> -->
+        <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+        <!-- <label for="email">Email :</label> -->
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <!-- <label for="telephone">Tel :</label> -->
+        <input type="tel" id="telephone" name="telephone" placeholder="telephone" required>    
     
+    </fieldset>
+    <a href="#">Suivant</a>
+
+    <h2>Étape 3</h2>
+    <fieldset class="localisation">
+        <legend>Localisation</legend>
+        <input type="text" id="adresse" name="adresse" placeholder="Adresse" required>
+        <input type="text" id="ville" name="ville" placeholder="Ville" required>
+        <select id="ville" name="province" placeholder="province" required>
+        <option value="" disabled selected>-- Sélectionnez une province --</option>
+        <option value="alberta">Alberta</option>
+        <option value="colombie-britannique">Colombie-Britannique</option>
+        <option value="manitoba">Manitoba</option>
+        <option value="nouveau-brunswick">Nouveau-Brunswick</option>
+        <option value="terre-neuve-et-labrador">Terre-Neuve-et-Labrador</option>
+        <option value="nouvelle-ecosse">Nouvelle-Écosse</option>
+        <option value="ontario">Ontario</option>
+        <option value="ile-du-prince-edouard">Île-du-Prince-Édouard</option>
+        <option value="quebec">Québec</option>
+        <option value="saskatchewan">Saskatchewan</option>
+        <option value="territoires-du-nord-ouest">Territoires du Nord-Ouest</option>
+        <option value="yukon">Yukon</option>
+        <option value="nunavut">Nunavut</option>
+        </select>
+        <input type="text" id="code_postal" name="code_postal" placeholder="Code postal" required>
+    </fieldset>
+
+    <h2>Étape 4</h2>
+    <fieldset>
+        <legend>Payment</legend>
+    <input type="password" id="carte" name="carte" placeholder="Numéro de carte" required>
+    <input type="text" id="date" name="date" placeholder="Date d'expiration (MM/AA)" required>
+    <input type="password" id="cvc" name="cvc" placeholder="CVC" required>
+</fieldset>
+    <br>
+    <button type="submit" value="valider">Faire un don</button>
+</form>
 </body>
 
 </html>
