@@ -1,4 +1,5 @@
 @use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Candal&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Poetsen+One&display=swap');
 /**
 * @author Prenom Nom courriel
 * @todo Importer la fonte Futura
@@ -15,7 +16,7 @@
   src: 	url('../fonts/Futura.ttc') format('truetype');
 }
 
-$fontePrimaire : Futura, sans-serif;
+$fontePrimaire : 'Carlito', sans-serif;
 $fonteSecondaire : Arial, sans-serif;
 
 /** Palette de couleurs **/

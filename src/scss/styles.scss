@@ -42,5 +42,7 @@
 @use "base/typo";
 @use "base/grille";
 
-/** MODULES **/
 
+/** MODULES **/
+@use "modules/header";
+@use "modules/body"
