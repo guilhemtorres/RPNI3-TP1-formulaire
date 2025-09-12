@@ -17,65 +17,105 @@
 
 <body>
     <main>
-        <h1>Formulaire de don</h1>
-        <form  method="post" id="formulaire">
-<!-- Ajouter les messages d'erreur -->
-            <fieldset class="" id="etape1" role="radiogroup">
-                <h2>Étape 1</h2>
-                <legend>Montant du don</legend>
-                <input type="radio" name="duree" id="unique">
-                <label for="unique">Don unique</label>
-                <input type="radio" name="duree" id="mensuelle">
-                <label for="mensuelle">Don mensuelle</label>
-                <span class="erreur" id="erreur-duree" aria-live="polite"></span>
-                <br>
-                <input type="radio" name="montant" id="prix1">
-                <label for="prix1">10$</label>
-                <input type="radio" name="montant" id="prix2">
-                <label for="prix2">20$</label>
-                <input type="radio" name="montant" id="prix3">
-                <label for="prix3">50$</label>
-                <input type="radio" name="montant" id="prix4">
-                <label for="prix4">100$</label>
-                <input type="radio" name="montant" id="prix5">
-                <label for="prix5">150$</label>
-                <input type="radio" name="montant" id="prix6">
-                <label for="prix6">200$</label>
+        <h1 class="titre__h1">Formulaire de don</h1>
+        <h2 class="h2__etape">Étape :</h2>
+        <nav aria-label="Principal" class="navigation">
+            <ul class="navigation__ul">
+                <li class="navigation__li">
+                    <a href="index.html" aria-current="step" id="num_etape"></a>
+                    <span class="navigation__span">1</span>
+                </li>
+                <li class="navigation__li">
+                    <span class="navigation__span">2</span>
+                </li>
+                <li class="navigation__li">
+                    <span class="navigation__span">3</span>
+                </li>
+                <li class="navigation__li">
+                    <span class="navigation__span">4</span>
+                </li>
+                <li class="navigation__li">
+                    <span class="navigation__span">5</span>
+                </li>
+            </ul>
+        </nav>
+
+        <form method="post" id="formulaire">
+            <!-- Ajouter les messages d'erreur -->
+            <fieldset class="fieldset" role="radiogroup">
+                <legend class="fieldset__legend">Montant du don</legend>
+                <h3 class="fieldset__frequence">Fréquence de don :</h3>
+                <section class="fieldset__duree">
+                    <div class="fieldset__duree--div1">
+                        <input type="radio" name="duree" id="unique" class="fieldset__duree--input">
+                        <label for="unique">Don unique</label>
+                    </div>
+                    <div class="fieldset__duree--div2">
+                        <input type="radio" name="duree" id="mensuelle" class="fieldset__duree--input">
+                        <label for="mensuelle">Don mensuelle</label>
+                    </div>
+                    <span class="erreur" id="erreur-duree" aria-live="polite"></span>
+                </section>
+                <div class="trait"></div>
+                <section class="fieldset__montant">
+                    <input type="radio" name="montant" id="prix1">
+                    <label for="prix1">10$</label>
+
+                    <input type="radio" name="montant" id="prix2">
+                    <label for="prix2">20$</label>
+
+                    <input type="radio" name="montant" id="prix3">
+                    <label for="prix3">50$</label>
+
+                    <input type="radio" name="montant" id="prix4">
+                    <label for="prix4">100$</label>
+
+                    <input type="radio" name="montant" id="prix5">
+                    <label for="prix5">150$</label>
+
+                    <input type="radio" name="montant" id="prix6">
+                    <label for="prix6">200$</label>
+                    </section>
                 <span class="erreur" id="erreur-montant" aria-live="polite"></span>
-                <br>
+
+                <div class="trait"></div>
+                <div class="fieldset__autre">
                 <label for="prix7"> Autre montant :</label>
                 <input type="number" name="facultatif" id="facultatif" min="1" max="9999">
-                <br>
+                </div>
             </fieldset>
 
 
-            <fieldset class="" id="etape2" role="text">
-                <h2 id="etape2">Étape 2</h2>
-                <legend>Informations personnelles</legend>
+            <fieldset class="fieldset" id="etape2" role="text">
+                <legend>Renseignements personnelles</legend>
                 <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" placeholder="Nom" autocomplete="name" required aria-describedby="err_nom" aria-invalid="true">
+                <input type="text" id="nom" name="nom" placeholder="Nom" autocomplete="name" required
+                    aria-describedby="err_nom" aria-invalid="true">
                 <span class="erreur" id="erreur-nom" aria-live="polite"></span>
                 <br>
                 <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Prénom" autocomplete="given-name" aria-describedby="err_prenom" required>
+                <input type="text" id="prenom" name="prenom" placeholder="Prénom" autocomplete="given-name"
+                    aria-describedby="err_prenom" required>
                 <span class="erreur" id="erreur-prenom" aria-live="polite"></span>
                 <br>
                 <label for="email">Email :</label>
-                <input type="email" id="courriel" name="email" placeholder="Email" autocomplete="email" aria-describedby="err_email" required>
+                <input type="email" id="courriel" name="email" placeholder="Email" autocomplete="email"
+                    aria-describedby="err_email" required>
                 <span class="erreur" id="erreur-email" aria-live="polite"></span>
-                
+
                 <br>
                 <label for="telephone">Téléphone :</label>
-                <input type="tel" id="telephone" name="telephone" placeholder="Téléphone" autocomplete="tel" aria-describedby="err_telephone" required>
+                <input type="tel" id="telephone" name="telephone" placeholder="Téléphone" autocomplete="tel"
+                    aria-describedby="err_telephone" required>
                 <span class="erreur" id="erreur-telephone" aria-live="polite"></span>
                 <br>
             </fieldset>
 
             <fieldset class="" id="etape3" role="text">
-                <h2>Étape 3</h2>
-                <legend>Localisation</legend>
+                <legend>Saississez votre adresse</legend>
                 <label for="adresse">Adresse :</label>
-                <input type="text" id="adresse" name="adresse" placeholder="Adresse" autocomplete="street-address" aria-describedby="err_localisation" required>
+                <input type="text" id="adresse" name="adresse" placeholder="Adresse" autocomplete="street-address"
+                    aria-describedby="err_localisation" required>
                 <span class="erreur" id="erreur-adresse" aria-live="polite"></span>
                 <br>
                 <label for="ville">Ville :</label>
@@ -102,13 +142,12 @@
                 </select>
                 <br>
                 <label for="code_postal">Code postal :</label>
-                <input type="text" id="code_postal" name="code_postal" placeholder="(XXX XXX)" maxlength="7" autocomplete="postal-code" aria-describedby="err_codepostal" required>
+                <input type="text" id="code_postal" name="code_postal" placeholder="(XXX XXX)" maxlength="7"
+                    autocomplete="postal-code" aria-describedby="err_codepostal" required>
                 <span class="erreur" id="erreur-code_postale" aria-live="polite"></span>
-                <br>
             </fieldset>
 
             <fieldset class="" id="etape4">
-                <h2>Étape 4</h2>
                 <legend>recapitulatif</legend>
                 <p>Montant du don : </p>
                 <p>Nom : </p>
@@ -122,29 +161,32 @@
                 <br>
             </fieldset>
 
-            
-            <fieldset class="" id="etape5" role="password">
-                <h2>Étape 5</h2>
 
-                <legend>Payment</legend>
+            <fieldset class="" id="etape5" role="password">
+                <legend>Paiement</legend>
                 <label for="carte">Numéro de carte :</label>
-                <input type="password" id="carte" name="carte" placeholder="Numéro de carte" maxlength="16" autocomplete="cc-number" aria-describedby="err_carte" required>
+                <input type="password" id="carte" name="carte" placeholder="Numéro de carte" maxlength="16"
+                    autocomplete="cc-number" aria-describedby="err_carte" required>
                 <span class="erreur" id="erreur-carte" aria-live="polite"></span>
                 <br>
                 <label for="date">Date d'expiration :</label>
                 <input type="month" id="date" name="date" placeholder="Date d'expiration (MM/AA)" maxlength="4"
                     inputmode="numeric" autocomplete="cc-exp" aria-describedby="err_date" required>
-                    <span class="erreur" id="erreur-date" aria-live="polite"></span>
+                <span class="erreur" id="erreur-date" aria-live="polite"></span>
                 <br>
                 <label for="cvc">CVC :</label>
-                <input type="password" id="cvc" name="cvc" placeholder="CVC" inputmode="numeric" maxlength="4" autocomplete="cc-csc" aria-describedby="err_cvc" required>   
-                <span class="erreur" id="erreur-cvc" aria-live="polite"></span>                      
+                <input type="password" id="cvc" name="cvc" placeholder="CVC" inputmode="numeric" maxlength="4"
+                    autocomplete="cc-csc" aria-describedby="err_cvc" required>
+                <span class="erreur" id="erreur-cvc" aria-live="polite"></span>
             </fieldset>
             <br>
-            <button type="button" id="precedent">Précédent</button>
-            <button type="button" id="suivant">Suivant</button>
-            <button type="submit" value="valider" id="faire_don">Faire un don</button>
 
+            <section class="boutons">
+            <button type="button" id="precedent" class="boutons__precedent">Précédent</button>
+            <button type="button" id="suivant" class="boutons__suivant">Suivant</button>
+        </section>
+            <button type="submit" value="valider" id="boutons__don" class="btn_don">Faire un don</button>
+            
         </form>
     </main>
 </body>

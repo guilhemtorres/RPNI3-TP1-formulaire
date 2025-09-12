@@ -1,11 +1,218 @@
-// @use "../utilitaires/variables";
+@use "../utilitaires/mixins";
+@use "../utilitaires/variables";
+@import url('https://fonts.googleapis.com/css2?family=Candal&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Poetsen+One&display=swap');
+
 *{
     margin: 0;
     padding: 0;
 }
 
-body h1{
+.titre__h1{
     text-align: center;
     font-size: 3em;
-    // font-family: $fontePrimaire;
+    font-family: 'Carlito', sans-serif;
+    font-weight: bold;
+    text-decoration: underline;
 }
+.h2__etape{
+    text-align: center;
+    font-size: 24px;
+}
+
+.navigation{
+    margin: 3em auto;
+
+    &__ul{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+    &__li{
+        list-style: none;
+        padding: 0 1em;
+        
+    }
+    &__span{
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        width: 60px; 
+        height: 60px;
+        text-decoration: none;
+        font-size: 24px;
+        background-color: #E60069;
+        color: white;
+        border-radius: 50%; 
+        margin: 0 auto; 
+    }
+    &__span:first-child{
+        background-color: #9e0148;
+    }
+}
+.fieldset{
+    margin: 0 auto;
+    max-width: 500px;
+    border-radius: 20px;
+    &__legend{
+        text-align: center;
+        font-size: 36px;
+        font-family: 'Carlito';
+    }
+    &__frequence{
+        text-align: center;
+        font-family: 'Carlito';
+        margin: 20px;
+    }
+
+    //DUREE
+    &__duree{
+        display: flex;
+        justify-content: center;
+    }
+    &__duree--div{
+        padding: 15px 20px;
+    }
+    &__duree--div1 label{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        background: #E60069;
+        color: white;
+        font-size: 1.2em;
+        font-family: 'Carlito';
+        transition: background-color 0.3s ease;
+        text-align: center;
+        border: black solid 1px;
+        border-radius: 10px 0 0 10px;
+    }
+     &__duree--div2 label{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        background: #E60069;
+        color: white;
+        font-size: 1.2em;
+        font-family: 'Carlito';
+        transition: background-color 0.3s ease;
+        text-align: center;
+        border: black solid 1px;
+        border-radius: 0 10px 10px 0;
+    }
+    &__duree--div1 input,
+    &__duree--div2  input{
+        display: none;
+    }
+    &__duree--div1 label:hover,
+    &__duree--div2 label:hover{
+         background-color: #9e0148;
+    }
+    &__duree--div1 input:checked + label,
+    &__duree--div2 input:checked + label{
+        background-color: #9e0148;
+        transform: scale(1.1);
+    }
+    
+    //MONTANTS
+    &__montant{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1em;
+        justify-items: center;
+    }
+    &__montant label{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        width: 3.5em;
+        box-sizing: border-box;
+        background: #E60069;
+        color: white;
+        font-size: 1.2em;
+        font-family: 'Carlito';
+        transition: background-color 0.3s ease;
+        text-align: center;
+        border: black solid 1px;
+        border-radius: 10px;
+        
+    }
+    &__montant label:hover {
+        background-color: #9e0148;
+    }
+    &__montant input {
+        display: none;
+    }
+    &__montant input:checked + label {
+    background-color: #9e0148;
+    transform: scale(1.1);
+    }
+    
+    //AUTRE MONTANT
+   &__autre {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin: 1em auto;
+    }
+    &__autre label {
+        display: block;
+        font-family: 'Carlito', sans-serif;
+        font-size: 20px;
+        margin-bottom: 2px;
+        padding-right: 20px;
+    }
+    &__autre input { 
+        width: 30%;
+        height: 30px;
+        font-size: 16px;
+        border: 3px solid #E60069;
+        border-radius: 5px;
+        font-family: 'Carlito', sans-serif;
+        transition: border 0.1s ease-in;
+    }
+    &__autre input:hover {
+        border: 5px solid #E60069;
+    }
+
+}
+
+.trait{
+    border: black 0.5px solid;
+    width: 100px;
+    margin: 20px auto;
+}
+
+.boutons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__suivant,
+    &__precedent{ 
+        margin: 0 auto;
+        padding: 10px 15px;
+        background-color: #E60069;
+        color: white;
+        text-align: center;
+        font-family: 'Carlito';
+        font-size: 20px;
+        border-radius: 10px;
+        border: black 1px solid;
+        transition: background-color .3s ease;
+    }
+    &__suivant:hover,
+    &__precedent:hover{
+        background-color: #9e0148;
+    }
+}
+
