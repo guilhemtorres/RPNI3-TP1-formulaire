@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  font-family: variables.$fonteSecondaire;
+  font-family: variables.$fontePrimaire;
   font-size: 16px; /* 16px pour toutes les largeurs d'écran */
   font-size: 1.6rem;
   line-height: 1.375; /* facteur multiplicateur de la taille de la police 1.375x16=22 */
@@ -44,7 +44,6 @@ h1,
     padding-bottom: 15px;
     position: relative;
     &:after {
-      background-color: variables.$bleuMoyen;
       content: "";
       display: inline-block;
       width: 150px;

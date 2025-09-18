@@ -24,16 +24,14 @@ $fonteSecondaire : Arial, sans-serif;
 // Permettez-vous d'utiliser un nom de variable plus explicite si la suggestion de name-that-color est trop étrange
 
 /* Couleurs de base */
-$bleuMoyen: #358ae0;
-$bleuPale: #68a8e8;
-$vertLime: #bbd531;
-$bleuMinuit: #012d61;
-$bleuMarin: #2678B5;
+$rose: #E60069;
+$roseFonce: #8a003e;
 
-$bleuMoyenTransparent : color.adjust($bleuMoyen, $alpha: -0.50);
+
+
 
 /* Autres couleurs */
-$hyperlien: $bleuMarin;
+
 
 /** Points de rupture **/
 $desktop : 601px;

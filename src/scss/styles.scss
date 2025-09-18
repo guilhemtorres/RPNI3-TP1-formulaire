@@ -45,6 +45,7 @@
 
 /** MODULES **/
 @use "modules/header";
+@use "modules/footer";
 @use "modules/body";
 .cacher{
     display: none;

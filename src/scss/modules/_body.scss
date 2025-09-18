@@ -1,16 +1,16 @@
 @use "../utilitaires/mixins";
 @use "../utilitaires/variables";
-@import url('https://fonts.googleapis.com/css2?family=Candal&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Poetsen+One&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-}
+
+// main{
+//     width: 90%;
+//     margin: 0 auto;
+// }
 
 .titre__h1{
     text-align: center;
     font-size: 3em;
-    font-family: 'Carlito', sans-serif;
+  
     font-weight: bold;
     text-decoration: underline;
 }
@@ -22,18 +22,17 @@
 .navigation{
     margin: 3em auto;
 
-    &__ul{
+    &__ol{
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
     &__li{
         list-style: none;
         padding: 0 1em;
         
     }
-    &__span{
+    &__item{
         display: flex; 
         align-items: center; 
         justify-content: center; 
@@ -41,27 +40,41 @@
         height: 60px;
         text-decoration: none;
         font-size: 24px;
-        background-color: #E60069;
         color: white;
         border-radius: 50%; 
         margin: 0 auto; 
     }
-    &__span:first-child{
-        background-color: #9e0148;
+    &__item--active{
+        background-color: variables.$rose;
+    }
+    &__item--inactive{
+         background-color: variables.$roseFonce;
+         cursor: not-allowed;
+    }
+    &__hors-ecran{
+        position: absolute; /* Position absolue pour l'enlver du "flow" commun du document */
+        width: 1px; /* 1px de large parce que zéro l'enlève de l'arbre d'accessibilité */
+        height: 1px; /* 1px de haut parce que zéro l'enlève de l'arbre d'accessibilité */
+        padding: 0; /* Aucun padding pour éviter que l'élément soit visible malgré sa largeur et son hauteur */
+        margin: -1px; /* Marge négative de 1px pour annuler le 1px de haut et de large */
+        overflow: hidden; /* Le contenu de l'élément doit ne pas dépasser du modèle de boîte (box model) pour qu'il reste invisible */
+        clip-path: inset(50%); /* Un masque clip-path qui force encore plus l'invisibilité de l'élément */
+        white-space: nowrap; /* Empêche les bris de ligne pour éviter que le texte de l'élément ne pousse d'autre contenu */
+        border-width: 0; /* On annule aussi les bordures */
     }
 }
+
 .fieldset{
     margin: 0 auto;
-    max-width: 500px;
+    width: 500px;
+    height: 450px;
     border-radius: 20px;
     &__legend{
         text-align: center;
         font-size: 36px;
-        font-family: 'Carlito';
     }
     &__frequence{
         text-align: center;
-        font-family: 'Carlito';
         margin: 20px;
     }
 
@@ -74,6 +87,7 @@
         padding: 15px 20px;
     }
     &__duree--div1 label{
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -81,16 +95,16 @@
         padding: 10px 20px;
         width: 100%;
         box-sizing: border-box;
-        background: #E60069;
+        background: variables.$rose;
         color: white;
         font-size: 1.2em;
-        font-family: 'Carlito';
         transition: background-color 0.3s ease;
         text-align: center;
         border: black solid 1px;
         border-radius: 10px 0 0 10px;
     }
      &__duree--div2 label{
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -98,10 +112,9 @@
         padding: 10px 20px;
         width: 100%;
         box-sizing: border-box;
-        background: #E60069;
+        background-color: variables.$rose;
         color: white;
         font-size: 1.2em;
-        font-family: 'Carlito';
         transition: background-color 0.3s ease;
         text-align: center;
         border: black solid 1px;
@@ -113,11 +126,11 @@
     }
     &__duree--div1 label:hover,
     &__duree--div2 label:hover{
-         background-color: #9e0148;
+         background-color: variables.$roseFonce;
     }
     &__duree--div1 input:checked + label,
     &__duree--div2 input:checked + label{
-        background-color: #9e0148;
+        background-color: variables.$roseFonce;
         transform: scale(1.1);
     }
     
@@ -127,8 +140,12 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 1em;
         justify-items: center;
+        align-items: center;
+        
+
     }
     &__montant label{
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -139,7 +156,6 @@
         background: #E60069;
         color: white;
         font-size: 1.2em;
-        font-family: 'Carlito';
         transition: background-color 0.3s ease;
         text-align: center;
         border: black solid 1px;
@@ -147,13 +163,13 @@
         
     }
     &__montant label:hover {
-        background-color: #9e0148;
+        background-color: variables.$roseFonce;
     }
     &__montant input {
         display: none;
     }
     &__montant input:checked + label {
-    background-color: #9e0148;
+    background-color: variables.$roseFonce;
     transform: scale(1.1);
     }
     
@@ -166,45 +182,55 @@
     }
     &__autre label {
         display: block;
-        font-family: 'Carlito', sans-serif;
         font-size: 20px;
         margin-bottom: 2px;
         padding-right: 20px;
     }
-    &__autre input { 
-        width: 30%;
-        height: 30px;
-        font-size: 16px;
-        border: 3px solid #E60069;
-        border-radius: 5px;
-        font-family: 'Carlito', sans-serif;
-        transition: border 0.1s ease-in;
-    }
-    &__autre input:hover {
-        border: 5px solid #E60069;
-    }
 
 }
 
+//SEPARATION
 .trait{
     border: black 0.5px solid;
     width: 100px;
     margin: 20px auto;
 }
 
-.boutons{
+//ÉTAPE2
+.champ{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    margin: 0 auto 1em auto;
+    max-width: 40%;        
+   
 
+    &__label{
+        font-size: 24px;
+        margin-bottom: 3px;
+    }
+    &__input{
+        border: 3px solid variables.$rose;
+        border-radius: 10px;
+        padding: 10px 3px;
+        margin-bottom: 1em;
+     
+    }
+    &__input::placeholder{
+        font-size: 20px;
+    }
+}
+.boutons{
+     display: flex;
+     justify-content: center;
+     gap: 5em;
+    
     &__suivant,
-    &__precedent{ 
-        margin: 0 auto;
+    &__precedent{  
+        cursor: pointer;
         padding: 10px 15px;
-        background-color: #E60069;
+        background-color: variables.$rose;
         color: white;
         text-align: center;
-        font-family: 'Carlito';
         font-size: 20px;
         border-radius: 10px;
         border: black 1px solid;
@@ -212,7 +238,21 @@
     }
     &__suivant:hover,
     &__precedent:hover{
-        background-color: #9e0148;
+        background-color: variables.$roseFonce;
     }
 }
 
+//   const radiosMontant = document.querySelectorAll('input[name="montant"]');//Chat GPT utilisé pour savoir comment prendre les input name 
+//   const inputAutre = document.getElementById("facultatif");
+
+//   radiosMontant.forEach((radio) => {
+//     radio.addEventListener("change", () => {
+//       inputAutre.value = "";
+//     });
+//   });
+
+//   inputAutre.addEventListener("input", () => {
+//     if (inputAutre.value !== "") {
+//       radiosMontant.forEach((radio) => (radio.checked = false));
+//     }
+//   });

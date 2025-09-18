@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+footer{
+    background: linear-gradient(to top, #a3a3a3, #ffffff );
+    margin-top: 2em;
+}
+.footer__img{
+    display: flex;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+.footer__droits{
+    font-family: 'Carlito';
+    font-size: 16px;
+    text-align: center;
+}
