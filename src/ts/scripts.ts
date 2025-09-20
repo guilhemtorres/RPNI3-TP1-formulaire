@@ -16,24 +16,22 @@ function initialiser() {
       fieldset.classList.add("cacher");
     });
 
-    // mettre au chargement de la page sur la premiere page le bouton en rose et impossible d'aller sur les autres pages
-    navLien.forEach((itemHTML, positionElement) => {
-      if (positionElement === 0) {
-        itemHTML.classList.remove("navigation__item--inactive");
-        itemHTML.classList.add("navigation__item--active");
-        itemHTML.ariaDisabled = "false";
-      } else {
-        itemHTML.classList.remove("navigation__item--active");
-        itemHTML.classList.add("navigation__item--inactive");
-        itemHTML.ariaDisabled = "true";
-      }
-    });
+    // mettre au chargement de la page sur la premiere page le numéro en rose et impossible d'aller sur les autres pages
+    for (let i = 0; i < navLien.length; i++) {
+  const lien = navLien[i];
 
-    navLien.forEach(etapeElement => {
-      etapeElement.addEventListener("click", naviguerEtape);
-    });
+  if (i === 0) {
+    lien.classList.remove("navigation__item--inactive");
+    lien.classList.add("navigation__item--active");
+    lien.setAttribute("aria-disabled", "false");
+  } else {
+    lien.classList.remove("navigation__item--active");
+    lien.classList.add("navigation__item--inactive");
+    lien.setAttribute("aria-disabled", "true");
+  }
 
-    
+  lien.addEventListener("click", naviguerEtape);
+}
   }
 
 
