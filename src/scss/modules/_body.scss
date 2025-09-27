@@ -1,5 +1,8 @@
 @use "../utilitaires/mixins";
 @use "../utilitaires/variables";
+@use "../base/typo";
+
+
 
 
 // main{
@@ -7,86 +10,109 @@
 //     margin: 0 auto;
 // }
 
-.titre__h1{
+.titre__h1 {
     text-align: center;
     font-size: 3em;
-  
+
     font-weight: bold;
     text-decoration: underline;
 }
-.h2__etape{
+
+.h2__etape {
     text-align: center;
     font-size: 24px;
 }
 
-.navigation{
+.navigation {
     margin: 3em auto;
 
-    &__ol{
+    &__ol {
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    &__li{
+
+    &__li {
         list-style: none;
         padding: 0 1em;
-        
+
     }
-    &__item{
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        width: 60px; 
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
         height: 60px;
         text-decoration: none;
         font-size: 24px;
         color: white;
-        border-radius: 50%; 
-        margin: 0 auto; 
+        border-radius: 50%;
+        margin: 0 auto;
     }
-    &__item--active{
+
+    &__item:hover {
+        background-color: #b81b61;
+    }
+
+    &__item--active {
         background-color: variables.$rose;
     }
-    &__item--inactive{
-         background-color: variables.$roseFonce;
-         cursor: not-allowed;
+
+    &__item--inactive {
+        background-color: variables.$roseFonce;
+        cursor: not-allowed;
     }
-    &__hors-ecran{
-        position: absolute; /* Position absolue pour l'enlver du "flow" commun du document */
-        width: 1px; /* 1px de large parce que zéro l'enlève de l'arbre d'accessibilité */
-        height: 1px; /* 1px de haut parce que zéro l'enlève de l'arbre d'accessibilité */
-        padding: 0; /* Aucun padding pour éviter que l'élément soit visible malgré sa largeur et son hauteur */
-        margin: -1px; /* Marge négative de 1px pour annuler le 1px de haut et de large */
-        overflow: hidden; /* Le contenu de l'élément doit ne pas dépasser du modèle de boîte (box model) pour qu'il reste invisible */
-        clip-path: inset(50%); /* Un masque clip-path qui force encore plus l'invisibilité de l'élément */
-        white-space: nowrap; /* Empêche les bris de ligne pour éviter que le texte de l'élément ne pousse d'autre contenu */
-        border-width: 0; /* On annule aussi les bordures */
+
+    &__hors-ecran {
+        position: absolute;
+        /* Position absolue pour l'enlver du "flow" commun du document */
+        width: 1px;
+        /* 1px de large parce que zéro l'enlève de l'arbre d'accessibilité */
+        height: 1px;
+        /* 1px de haut parce que zéro l'enlève de l'arbre d'accessibilité */
+        padding: 0;
+        /* Aucun padding pour éviter que l'élément soit visible malgré sa largeur et son hauteur */
+        margin: -1px;
+        /* Marge négative de 1px pour annuler le 1px de haut et de large */
+        overflow: hidden;
+        /* Le contenu de l'élément doit ne pas dépasser du modèle de boîte (box model) pour qu'il reste invisible */
+        clip-path: inset(50%);
+        /* Un masque clip-path qui force encore plus l'invisibilité de l'élément */
+        white-space: nowrap;
+        /* Empêche les bris de ligne pour éviter que le texte de l'élément ne pousse d'autre contenu */
+        border-width: 0;
+        /* On annule aussi les bordures */
     }
 }
 
-.fieldset{
+.fieldset {
     margin: 0 auto;
     width: 500px;
-    height: 450px;
+    height: 0 auto;
     border-radius: 20px;
-    &__legend{
+
+    &__legend {
         text-align: center;
         font-size: 36px;
     }
-    &__frequence{
+
+    &__frequence {
         text-align: center;
         margin: 20px;
     }
 
     //DUREE
-    &__duree{
+    &__duree {
         display: flex;
         justify-content: center;
     }
-    &__duree--div{
+
+    &__duree--div {
         padding: 15px 20px;
     }
-    &__duree--div1 label{
+
+    &__duree--div1 label {
         cursor: pointer;
         display: flex;
         flex-direction: row;
@@ -103,7 +129,8 @@
         border: black solid 1px;
         border-radius: 10px 0 0 10px;
     }
-     &__duree--div2 label{
+
+    &__duree--div2 label {
         cursor: pointer;
         display: flex;
         flex-direction: row;
@@ -120,31 +147,34 @@
         border: black solid 1px;
         border-radius: 0 10px 10px 0;
     }
+
     &__duree--div1 input,
-    &__duree--div2  input{
+    &__duree--div2 input {
         display: none;
     }
+
     &__duree--div1 label:hover,
-    &__duree--div2 label:hover{
-         background-color: variables.$roseFonce;
+    &__duree--div2 label:hover {
+        background-color: variables.$roseFonce;
     }
-    &__duree--div1 input:checked + label,
-    &__duree--div2 input:checked + label{
+
+    &__duree--div1 input:checked+label,
+    &__duree--div2 input:checked+label {
         background-color: variables.$roseFonce;
         transform: scale(1.1);
     }
-    
+
     //MONTANTS
-    &__montant{
+    &__montant {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1em;
         justify-items: center;
-        align-items: center;
-        
+
 
     }
-    &__montant label{
+
+    &__montant label {
         cursor: pointer;
         display: flex;
         flex-direction: row;
@@ -160,26 +190,30 @@
         text-align: center;
         border: black solid 1px;
         border-radius: 10px;
-        
+
     }
+
     &__montant label:hover {
         background-color: variables.$roseFonce;
     }
+
     &__montant input {
         display: none;
     }
-    &__montant input:checked + label {
-    background-color: variables.$roseFonce;
-    transform: scale(1.1);
+
+    &__montant input:checked+label {
+        background-color: variables.$roseFonce;
+        transform: scale(1.1);
     }
-    
+
     //AUTRE MONTANT
-   &__autre {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    margin: 1em auto;
+    &__autre {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1em auto;
     }
+
     &__autre label {
         display: block;
         font-size: 20px;
@@ -190,42 +224,59 @@
 }
 
 //SEPARATION
-.trait{
+.trait {
     border: black 0.5px solid;
     width: 100px;
     margin: 20px auto;
 }
 
 //ÉTAPE2
-.champ{
+.champ {
     display: flex;
     flex-direction: column;
     margin: 0 auto 1em auto;
-    max-width: 40%;        
-   
+    max-width: 45%;
 
-    &__label{
+
+    &__label {
         font-size: 24px;
         margin-bottom: 3px;
     }
-    &__input{
+
+    &__input {
         border: 3px solid variables.$rose;
         border-radius: 10px;
         padding: 10px 3px;
         margin-bottom: 1em;
-     
+
     }
-    &__input::placeholder{
+
+    &__input::placeholder {
         font-size: 20px;
     }
 }
-.boutons{
-     display: flex;
-     justify-content: center;
-     gap: 5em;
-    
+
+.erreur {
+    background-image: url("../images/attention.svg");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 20px;
+    padding-left: 28px;
+    color: red;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+
+.boutons {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+
     &__suivant,
-    &__precedent{  
+    &__precedent {
         cursor: pointer;
         padding: 10px 15px;
         background-color: variables.$rose;
@@ -236,23 +287,9 @@
         border: black 1px solid;
         transition: background-color .3s ease;
     }
+
     &__suivant:hover,
-    &__precedent:hover{
+    &__precedent:hover {
         background-color: variables.$roseFonce;
     }
 }
-
-//   const radiosMontant = document.querySelectorAll('input[name="montant"]');//Chat GPT utilisé pour savoir comment prendre les input name 
-//   const inputAutre = document.getElementById("facultatif");
-
-//   radiosMontant.forEach((radio) => {
-//     radio.addEventListener("change", () => {
-//       inputAutre.value = "";
-//     });
-//   });
-
-//   inputAutre.addEventListener("input", () => {
-//     if (inputAutre.value !== "") {
-//       radiosMontant.forEach((radio) => (radio.checked = false));
-//     }
-//   });

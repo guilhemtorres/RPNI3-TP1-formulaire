@@ -11,201 +11,231 @@
     <script defer src="js/scripts.js"></script>
 </head>
 
-<header>
-    <img class="header__img" src="images/logo_final.svg" alt="logo de Gar'O Gazelles" width="100">
-</header>
 
 <body>
+    <header>
+        <img class="header__img" src="images/logo_final.svg" alt="logo de Gar'O Gazelles" width="100">
+    </header>
     <main>
         <h1 class="titre__h1">Formulaire de don</h1>
         <h2 class="h2__etape">Étape :</h2>
         <nav aria-label="Principal" class="navigation">
             <ol class="navigation__ol">
                 <li class="navigation__li">
-            <!-- La valeur href de l'ancre doit être le ID de la section où le focus sera mis lorsqu'on clique dessus SANS JavaScript -->
-            <a class="navigation__item navigation__item--active" aria-current="step" data-etape="1" href="#etape1">
-              <span class="navigation__hors--ecran">1</span>
-            </a>
-        </li>
-        <li class="navigation__li">
-            <a class="navigation__item navigation__item--inactive" aria-disabled="true" data-etape="2" href="#etape2">
-              <span class="navigation__hors--ecran">2</span>
-            </a>
-        </li>
-        <li class="navigation__li">
-            <a class="navigation__item navigation__item--inactive" aria-disabled="true" data-etape="3" href="#etape3">
-              <span class="navigation__hors--ecran">3</span>
-            </a>
-        </li>
-        <li class="navigation__li">
-            <a class="navigation__item navigation__item--inactive" data-etape="4" aria-disabled="true" href="#etape4">
-              <span class="navigation__hors--ecran" >4</span>
-            </a>
-        </li>
-         <li class="navigation__li">
-            <a class="navigation__item navigation__item--inactive" data-etape="5" aria-disabled="true" href="#etape5">
-              <span class="navigation__hors--ecran" >5</span>
-            </a>
-        </li>
-    </ol>
-</nav>
+                    <!-- La valeur href de l'ancre doit être le ID de la section où le focus sera mis lorsqu'on clique dessus SANS JavaScript -->
+                    <a class="navigation__item navigation__item--active" aria-current="step" data-etape="1"
+                        href="#etape1">
+                        <span class="navigation__hors--ecran  ">1</span>
+                    </a>
+                </li>
+                <li class="navigation__li">
+                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" data-etape="2"
+                        href="#etape2">
+                        <span class="navigation__hors--ecran">2</span>
+                    </a>
+                </li>
+                <li class="navigation__li">
+                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" data-etape="3"
+                        href="#etape3">
+                        <span class="navigation__hors--ecran">3</span>
+                    </a>
+                </li>
+                <li class="navigation__li">
+                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" data-etape="4"
+                        href="#etape4">
+                        <span class="navigation__hors--ecran">4</span>
+                    </a>
+                </li>
+                <li class="navigation__li">
+                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" data-etape="5"
+                        href="#etape5">
+                        <span class="navigation__hors--ecran">5</span>
+                    </a>
+                </li>
+            </ol>
+        </nav>
 
         <form method="post" id="formulaire">
-            <!-- Ajouter les messages d'erreur -->
+            <!-- ETAPE 1 -->
             <fieldset class="fieldset" role="radiogroup" id="etape1">
                 <legend class="fieldset__legend">Montant du don</legend>
                 <h3 class="fieldset__frequence">Fréquence de don :</h3>
-                <section class="fieldset__duree">
+
+                <!-- FREQUENCE DE DON -->
+                <div class="fieldset__duree">
                     <div class="fieldset__duree--div1">
-                        <input type="radio" name="duree" id="unique" class="fieldset__duree--input">
+                        <input type="radio" name="duree" id="unique" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$"
+                            class="fieldset__duree--input" checked>
                         <label for="unique">Don unique</label>
                     </div>
                     <div class="fieldset__duree--div2">
-                        <input type="radio" name="duree" id="mensuelle" class="fieldset__duree--input">
+                        <input type="radio" name="duree" id="mensuelle" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$"
+                            class="fieldset__duree--input">
                         <label for="mensuelle">Don mensuelle</label>
                     </div>
-                    <span class="erreur" id="erreur-duree" aria-live="polite"></span>
-                </section>
+                    <span id="erreur-duree" class="message-erreur"></span>
+                </div>
+
                 <div class="trait"></div>
-                <section class="fieldset__montant">
-                    <input type="radio" name="montant" id="prix1">
+                <!-- PRIX EN $ -->
+                <div class="fieldset__montant">
+                    <input type="radio" name="montant" id="prix1" value="10" checked>
                     <label for="prix1">10$</label>
 
-                    <input type="radio" name="montant" id="prix2">
+                    <input type="radio" name="montant" id="prix2" value="20">
                     <label for="prix2">20$</label>
 
-                    <input type="radio" name="montant" id="prix3">
+                    <input type="radio" name="montant" id="prix3" value="50">
                     <label for="prix3">50$</label>
 
-                    <input type="radio" name="montant" id="prix4">
+                    <input type="radio" name="montant" id="prix4" value="100">
                     <label for="prix4">100$</label>
 
-                    <input type="radio" name="montant" id="prix5">
+                    <input type="radio" name="montant" id="prix5" value="150">
                     <label for="prix5">150$</label>
 
-                    <input type="radio" name="montant" id="prix6">
+                    <input type="radio" name="montant" id="prix6" value="200">
                     <label for="prix6">200$</label>
-                    </section>
-                <span class="erreur" id="erreur-montant" aria-live="polite"></span>
+                    <span id="erreur-montant" class="message-erreur"></span>
+                </div>
 
                 <div class="trait"></div>
+
                 <div class="champ">
-                <label for="prix7" class="champ__label"> Autre montant :</label>
-                <input type="number" class="champ__input" name="facultatif" id="facultatif" min="1" max="9999">
+                    <label for="facultatif" class="champ__label"> Autre montant :</label>
+                    <input type="number" class="champ__input" name="facultatif" id="facultatif" min="1" max="9999">
+                </div>
+            </fieldset>
+
+            <!-- ETAPE 2 -->
+            <fieldset class="fieldset" id="etape2" role="text">
+                <legend class="fieldset__legend">Renseignements personnels</legend>
+
+                <div class="champ">
+
+                    <label for="nom" class="champ__label">Nom :</label>
+                    <input type="text" class="champ__input" id="nom" name="nom" placeholder="Nom" autocomplete="name"
+                        required aria-describedby="erreur-nom" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$" aria-invalid="true">
+                    <span class="erreur" id="erreur-nom" aria-live="polite"></span>
+
+
+                    <label for="prenom" class="champ__label">Prénom :</label>
+                    <input type="text" class="champ__input" id="prenom" name="prenom" placeholder="Prénom"
+                        autocomplete="given-name" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$" aria-describedby="erreur-prenom"
+                        required>
+                    <span class="erreur" id="erreur-prenom" aria-live="polite"></span>
+
+                    <label for="courriel" class="champ__label">Email :</label>
+                    <input type="email" class="champ__input" id="courriel" name="courriel" placeholder="Email"
+                        autocomplete="email" aria-describedby="erreur-courriel"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                    <span class="erreur" id="erreur-courriel" aria-live="polite"></span>
+
+                    <label for="telephone" class="champ__label">Téléphone :</label>
+                    <input type="tel" class="champ__input" id="telephone" name="telephone" placeholder="866 813-1234"
+                        autocomplete="tel" aria-describedby="erreur-telephone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                        maxlength="10" required>
+                    <span class="erreur" id="erreur-telephone" aria-live="polite"></span>
+
+                </div>
+            </fieldset>
+
+            <!-- ETAPE 3 -->
+            <fieldset class="fieldset" autocomplete="address" id="etape3" role="text">
+                <legend class="fieldset__legend">Saississez votre adresse</legend>
+                <div class="champ">
+                    <label class="champ__label" for="adresse">Adresse :</label>
+                    <input type="text" class="champ__input" id="adresse" name="adresse" placeholder="Adresse"
+                        autocomplete="address-line1" aria-describedby="erreur-adresse" required>
+                    <span class="erreur" id="erreur-adresse" aria-live="polite"></span>
+
+                    <label for="ville" class="champ__label">Ville :</label>
+                    <input type="text" class="champ__input" id="ville" name="ville" placeholder="Ville"
+                        aria-describedby="erreur-ville" autocomplete="address-level2" required>
+                    <span class="erreur" id="erreur-ville" aria-live="polite"></span>
+
+                    <label for="province" class="champ__label">Province :</label>
+                    <select id="province" name="province" class="champ__input" placeholder="province"
+                        aria-describedby="erreur-province" autocomplete="address-level1" required>
+                        <option value="" disabled selected>-- Sélectionnez une province --</option>
+                        <option value="alberta">Alberta</option>
+                        <option value="colombie-britannique">Colombie-Britannique</option>
+                        <option value="manitoba">Manitoba</option>
+                        <option value="nouveau-brunswick">Nouveau-Brunswick</option>
+                        <option value="terre-neuve-et-labrador">Terre-Neuve-et-Labrador</option>
+                        <option value="nouvelle-ecosse">Nouvelle-Écosse</option>
+                        <option value="ontario">Ontario</option>
+                        <option value="ile-du-prince-edouard">Île-du-Prince-Édouard</option>
+                        <option value="quebec">Québec</option>
+                        <option value="saskatchewan">Saskatchewan</option>
+                        <option value="territoires-du-nord-ouest">Territoires du Nord-Ouest</option>
+                        <option value="yukon">Yukon</option>
+                        <option value="nunavut">Nunavut</option>
+                    </select>
+                    <span class="erreur" id="erreur-province" aria-live="polite"></span>
+
+                    <label for="codepostal" class="champ__label">Code postal :</label>
+                    <input type="text" class="champ__input" id="codepostal" name="codepostal" placeholder="XXX XXX"
+                        pattern="[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]" autocomplete="postal-code"
+                        aria-describedby="erreur-codepostal" maxlength="7" required>
+                    <span class="erreur" id="erreur-codepostal" aria-live="polite"></span>
                 </div>
             </fieldset>
 
 
-            <fieldset class="fieldset" id="etape2" role="text">
-                <legend class="fieldset__legend">Renseignements personnels</legend>
-                
+
+
+            <!-- ETAPE 4 -->
+            <fieldset class="fieldset" id="etape4" role="password">
+                <legend class="fieldset__legend">Paiement</legend>
                 <div class="champ">
-                <label for="nom" class="champ__label">Nom :</label>
-                <input type="text" class="champ__input" id="nom" name="nom" placeholder="Nom" autocomplete="name" required aria-describedby="err_nom" aria-invalid="true">
-                <span class="erreur" id="erreur-nom" aria-live="polite"></span>
-                
-                <label for="prenom" class="champ__label">Prénom :</label>
-                <input type="text" class="champ__input" id="prenom" name="prenom" placeholder="Prénom" autocomplete="given-name"
-                    aria-describedby="err_prenom" required>
-                <span class="erreur" id="erreur-prenom" aria-live="polite"></span>
+                    <label for="carte" class="champ__label">Numéro de carte :</label>
+                    <input type="text" class="champ__input" id="carte" name="carte" inputmode="numeric"
+                        placeholder="xxxx xxxx xxxx xxxx" maxlength="16" autocomplete="cc-number"
+                        aria-describedby="erreur-carte" pattern="[0-9]{16}" required>
+                    <span class="erreur" id="erreur-carte" aria-live="polite"></span>
 
-                <label for="email" class="champ__label">Email :</label>
-                <input type="email" class="champ__input" id="courriel" name="email" placeholder="Email" autocomplete="email"
-                    aria-describedby="err_email" required>
-                <span class="erreur" id="erreur-email" aria-live="polite"></span>
 
-                <label for="telephone" class="champ__label">Téléphone :</label>
-                <input type="tel" class="champ__input" id="telephone" name="telephone" placeholder="Téléphone" autocomplete="tel"
-                    aria-describedby="err_telephone" required>
-                <span class="erreur" id="erreur-telephone" aria-live="polite"></span>
-            </div>
+                    <label for="date" class="champ__label">Date d'expiration :</label>
+                    <input type="month" class="champ__input" id="date" name="date"
+                        placeholder="Date d'expiration (MM/AA)" maxlength="4" inputmode="numeric" autocomplete="cc-exp"
+                        aria-describedby="erreur-date" required>
+                    <span class="erreur" id="erreur-date" aria-live="polite"></span>
+
+                    <label for="cvc" class="champ__label">CVC :</label>
+                    <input type="password" class="champ__input" id="cvc" name="cvc" placeholder="xxx"
+                        inputmode="numeric" autocomplete="cc-csc" aria-describedby="erreur-cvc" pattern="[0-9]{3,4}"
+                        maxlength="4" required>
+                    <span class="erreur" id="erreur-cvc" aria-live="polite"></span>
+                </div>
             </fieldset>
 
-            <fieldset class="fieldset" id="etape3" role="text">
-                <legend class="fieldset__legend">Saississez votre adresse</legend>
-             <div class="champ">
-                <label class="champ__label" for="adresse">Adresse :</label>
-                <input type="text" class="champ__input" id="adresse" name="adresse" placeholder="Adresse" autocomplete="street-address"
-                    aria-describedby="err_localisation" required>
-                <span class="erreur" id="erreur-adresse" aria-live="polite"></span>
 
-                <label for="ville" class="champ__label">Ville :</label>
-                <input type="text" class="champ__input" id="ville" name="ville" placeholder="Ville" aria-describedby="err_ville" required>
-                <span class="erreur" id="erreur-ville" aria-live="polite"></span>
-             
-                <label for="province" class="champ__label">Province :</label>
-                <select id="province" name="province" class="champ__input" placeholder="province" aria-describedby="err_province" required>
-                    <span class="erreur" id="erreur-province" aria-live="polite"></span>
-                    <option value="" disabled selected>-- Sélectionnez une province --</option>
-                    <option value="alberta">Alberta</option>
-                    <option value="colombie-britannique">Colombie-Britannique</option>
-                    <option value="manitoba">Manitoba</option>
-                    <option value="nouveau-brunswick">Nouveau-Brunswick</option>
-                    <option value="terre-neuve-et-labrador">Terre-Neuve-et-Labrador</option>
-                    <option value="nouvelle-ecosse">Nouvelle-Écosse</option>
-                    <option value="ontario">Ontario</option>
-                    <option value="ile-du-prince-edouard">Île-du-Prince-Édouard</option>
-                    <option value="quebec">Québec</option>
-                    <option value="saskatchewan">Saskatchewan</option>
-                    <option value="territoires-du-nord-ouest">Territoires du Nord-Ouest</option>
-                    <option value="yukon">Yukon</option>
-                    <option value="nunavut">Nunavut</option>
-                </select>
-               
-                <label for="code_postal" class="champ__label">Code postal :</label>
-                <input type="text" class="champ__input" id="code_postal" name="code_postal" placeholder="(XXX XXX)" maxlength="7"
-                    autocomplete="postal-code" aria-describedby="err_codepostal" required>
-                <span class="erreur" id="erreur-code_postale" aria-live="polite"></span>
-            </div>
-            </fieldset>
-
-            <fieldset class="fieldset" id="etape4" role="text">
-                <legend class="fieldset__legend">recapitulatif</legend>
-                <p>Montant du don : </p>
-                <p>Nom : </p>
-                <p>Prénom : </p>
-                <p>Email : </p>
-                <p>Téléphone : </p>
-                <p>Adresse : </p>
-                <p>Ville : </p>
-                <p>Province : </p>
-                <p>Code postal : </p>
+            <!-- ETAPE 5 -->
+            <fieldset class="fieldset" id="etape5" role="text">
+                <legend class="fieldset__legend">Récapitulatif rapide</legend>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
                 <br>
             </fieldset>
 
-
-            <fieldset class="fieldset" id="etape5" role="password">
-                <legend class="fieldset__legend">Paiement</legend>
-                <div class="champ">
-                <label for="carte" class="champ__label">Numéro de carte :</label>
-                <input type="password" class="champ__input" id="carte" name="carte" placeholder="Numéro de carte" maxlength="16"
-                    autocomplete="cc-number" aria-describedby="err_carte" required>
-                <span class="erreur" id="erreur-carte" aria-live="polite"></span>
-                
-                <label for="date" class="champ__label">Date d'expiration :</label>
-                <input type="month" class="champ__input" id="date" name="date" placeholder="Date d'expiration (MM/AA)" maxlength="4"
-                    inputmode="numeric" autocomplete="cc-exp" aria-describedby="err_date" required>
-                <span class="erreur" id="erreur-date" aria-live="polite"></span>
-                
-                <label for="cvc" class="champ__label">CVC :</label>
-                <input type="password" class="champ__input" id="cvc" name="cvc" placeholder="CVC" inputmode="numeric" maxlength="4"
-                    autocomplete="cc-csc" aria-describedby="err_cvc" required>
-                <span class="erreur" id="erreur-cvc" aria-live="polite"></span>
-            </fieldset>
+            <!-- BOUTONS DE NAVIGATION -->
+            <div class="bouton">
+                <button type="button" id="precedent" class="bouton__precedent">Précédent</button>
+                <button type="button" id="suivant" class="bouton__suivant">Suivant</button>
+                <button type="submit" value="valider" id="faire_don" class="bouton__don">Faire un don</button>
             </div>
-            <section class="bouton">
-            <button type="button" id="precedent" class="bouton__precedent">Précédent</button>
-            <button type="button" id="suivant" class="bouton__suivant">Suivant</button>
-            <button type="submit" value="valider" id="faire_don" class="bouton__don">Faire un don</button>
-        </section>
-            
-            
         </form>
     </main>
+
+    <footer>
+        <img class="footer__img" src="images/logo_final.svg" alt="logo de Gar'O Gazelles" width="100">
+        <p class="footer__droits">© 2025 Gar'O Gazelles. Tous droits réservés.</p>
+    </footer>
 </body>
-<footer>
-    <img class="footer__img" src="images/logo_final.svg" alt="logo de Gar'O Gazelles" width="100">
-    <p class="footer__droits">© 2025 Gar'O Gazelles. Tous droits réservés.</p>
-</footer>
 
 </html>

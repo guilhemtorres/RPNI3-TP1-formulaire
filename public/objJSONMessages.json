@@ -13,15 +13,40 @@
     },
     "sujet": {
         "vide": "Vous devez entrer un sujet.",
-        "pattern": "Entrez une sujet valide."
+        "pattern": "Entrez une sujet."
+    },
+    "telephone": {
+        "vide": "Vous devez entrer votre numéro de téléphone.",
+        "pattern": "Le numéro de téléphone doit contenir 10 chiffres."
     },
     "message": {
         "vide": "Entrez un message."
     },
-    "frequence": {
-        "vide" : "Vous devez entrer une fréquence."
-    },
     "radio": {
         "vide": "Vous devez entrer un prix."
+    },
+    "adresse": {
+        "vide": "Vous devez entrer une adresse."
+    },
+    "ville": {
+        "vide": "Vous devez entrer une ville."
+    },
+    "province": {
+        "vide": "Vous devez entrer une province."
+    },
+    "codepostal": {
+        "vide": "Vous devez entrer un code postal.",
+        "pattern": "6 caractères attendus."
+    },
+    "carte": {
+        "vide": "Vous devez entrer un numéro de carte bancaire.",
+        "pattern": "Pas de caractères spéciaux, ni d'espaces. 16 chiffres attendus."
+
+    },
+    "date": {
+        "vide": "Vous devez entrer une date."
+    },
+    "cvc": {
+        "vide": "Vous devez entrer votre code cvc."
     }
 }
