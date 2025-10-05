@@ -19,13 +19,14 @@
     <main>
         <h1 class="titre__h1">Formulaire de don</h1>
         <h2 class="h2__etape">Étape :</h2>
+        <!-- Navigation -->
         <nav aria-label="Principal" class="navigation">
             <ol class="navigation__ol">
                 <li class="navigation__li">
-                    <!-- La valeur href de l'ancre doit être le ID de la section où le focus sera mis lorsqu'on clique dessus SANS JavaScript -->
+
                     <a class="navigation__item navigation__item--active" aria-current="step" data-etape="1"
                         href="#etape1">
-                        <span class="navigation__hors--ecran  ">1</span>
+                        <span class="navigation__hors--ecran ">1</span>
                     </a>
                 </li>
                 <li class="navigation__li">
@@ -112,7 +113,6 @@
                 <legend class="fieldset__legend">Renseignements personnels</legend>
 
                 <div class="champ">
-
                     <label for="nom" class="champ__label">Nom :</label>
                     <input type="text" class="champ__input" id="nom" name="nom" placeholder="Nom" autocomplete="name"
                         required aria-describedby="erreur-nom" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$" aria-invalid="true">

@@ -47,6 +47,8 @@
 @use "modules/header";
 @use "modules/footer";
 @use "modules/body";
+
+/** CACHER LES FIELDSETS **/
 .cacher{
     display: none;
 }

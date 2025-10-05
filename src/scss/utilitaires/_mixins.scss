@@ -1,3 +1,4 @@
+@use '../utilitaires/variables';
 /**
 * @author Ève Février - efevrier@cegep-ste-foy.qc.ca
 * @author Yves Hélie - yves.helie@cegep-ste-foy.qc.ca
@@ -16,6 +17,48 @@
 
 /********** Utilitaires de base **********/
 
+//Boutons de navigation (suivant, précédant, payer)
+@mixin boutons-nav{
+    .boutons {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+
+    &__suivant,
+    &__precedent {
+        cursor: pointer;
+        padding: 10px 15px;
+        background-color: variables.$rose;
+        color: white;
+        text-align: center;
+        font-size: 20px;
+        border-radius: 10px;
+        border: black 1px solid;
+        transition: background-color .3s ease;
+    }
+
+    &__suivant:hover,
+    &__precedent:hover {
+        background-color: variables.$roseFonce;
+    }
+}
+}
+
+// Erreur en rouge si un champ n'est pas rempli ou mal rempli 
+@mixin erreur{
+    .erreur {
+    background-image: url("../images/attention.svg");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 20px;
+    padding-left: 28px;
+    color: red;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+}
 /** Box sizing **/
 @mixin border-box-sizing {
     html {

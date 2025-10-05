@@ -36,7 +36,7 @@
     },
     "codepostal": {
         "vide": "Vous devez entrer un code postal.",
-        "pattern": "6 caractères attendus."
+        "pattern": "6 caractères attendus (ex: G1V 1G1)."
     },
     "carte": {
         "vide": "Vous devez entrer un numéro de carte bancaire.",

@@ -1,5 +1,13 @@
 "use strict";
 // Au chargement de la page
+/**
+/**
+ * Obtenir les messages d’erreur
+ * Récupérer les boutons et les fieldsets en HTML
+ * Créer une fonction pour cacher/afficher les fieldsets selon l’étape
+ * Changer la couleur du premier élément dans la navigation au chargement de la page et empêcher d'aller sur les autres étapes
+ * Appeler la fonction gererAutreMontant pour la lancer dès le début
+ */
 function initialiser() {
     obtenirMessage();
     // Boutons
@@ -14,7 +22,7 @@ function initialiser() {
         fieldsets.forEach((fieldset) => {
             fieldset.classList.add("cacher");
         });
-        // mettre au chargement de la page sur la premiere page le numéro en rose et impossible d'aller sur les autres pages
+        // Mettre au chargement de la page sur la premiere page le numéro en rose et impossible d'aller sur les autres pages
         for (let i = 0; i < navLien.length; i++) {
             const lien = navLien[i];
             if (i === 0) {
@@ -37,16 +45,22 @@ function initialiser() {
         const reponse = await fetch("objJSONMessages.json");
         messagesJSON = await reponse.json();
     }
-    // Valider un champ individuel
+    // Valider les champs individuellement
+    /**
+     * Prendre un champ à la fois et lui attribuer un message d’erreur spécifique
+     * Vérifier chaque type d’erreur de validation
+     * Exemple : type de données incorrect (email, Nom, téléphone, etc.)
+     * Ne correspond pas au pattern regex défini
+     * Retourner "valide" si le champ n’a plus d’erreurs (true)
+     */
     function validerChamp(champ) {
         let valide = false;
-        const id = champ.id; // email
-        const idMessageErreur = "erreur-" + id; // erreur-email
+        const id = champ.id;
+        const idMessageErreur = "erreur-" + id;
         const erreurElement = document.getElementById(idMessageErreur);
-        console.log('valider champ', champ.id, champ.validity);
         // Vérifie chaque type d'erreur de validation
         if (champ.validity.valueMissing && messagesJSON[id].vide) {
-            console.log('erreur', id);
+            console.log("erreur", id);
             console.log("message", messagesJSON[id].vide, erreurElement);
             valide = false;
             erreurElement.innerText = messagesJSON[id].vide;
@@ -68,6 +82,12 @@ function initialiser() {
         return valide;
     }
     // Valider une étape complète
+    /**
+     * Valider une étape à la fois (une par case)
+     * Prendre tous les éléments HTML puis les convertir dans une variable
+     * Vérifier si les boutons radio sont cochés (checked)
+     * Si tout est bien coché, alors l’étape est retournée comme valide (true)
+     */
     function validerEtape(etape) {
         let etapeValide = false;
         switch (etape) {
@@ -89,10 +109,15 @@ function initialiser() {
                     dureeValide = true;
                     erreurDuree.innerText = "";
                 }
-                if (montantPrix1.checked || montantPrix2.checked || montantPrix3.checked || montantPrix4.checked || montantPrix5.checked || montantPrix6.checked) {
+                if (montantPrix1.checked ||
+                    montantPrix2.checked ||
+                    montantPrix3.checked ||
+                    montantPrix4.checked ||
+                    montantPrix5.checked ||
+                    montantPrix6.checked) {
                     montantValide = true;
                 }
-                else if (autreMontant.value !== "") { //À modifier 
+                else if (autreMontant.value !== "") {
                     montantValide = true;
                 }
                 if (dureeValide && montantValide) {
@@ -100,11 +125,12 @@ function initialiser() {
                 }
                 break;
             // Étape 2 : Informations personnelles
+            // Si tout est bien rempli, alors l’étape est retournée comme valide (true)
             case 1:
-                const nomElement = document.getElementById('nom');
-                const prenomElement = document.getElementById('prenom');
-                const emailElement = document.getElementById('courriel');
-                const telephoneElement = document.getElementById('telephone');
+                const nomElement = document.getElementById("nom");
+                const prenomElement = document.getElementById("prenom");
+                const emailElement = document.getElementById("courriel");
+                const telephoneElement = document.getElementById("telephone");
                 const nomValide = validerChamp(nomElement);
                 const prenomValide = validerChamp(prenomElement);
                 const emailValide = validerChamp(emailElement);
@@ -113,25 +139,30 @@ function initialiser() {
                     etapeValide = true;
                 }
                 break;
-            // Étape 3 : Adresse
+            // Étape 3 : Adresse civile
+            // Si tout est bien rempli, alors l’étape est retournée comme valide (true)
             case 2:
-                const adresseElement = document.getElementById('adresse');
-                const villeElement = document.getElementById('ville');
-                const provinceElement = document.getElementById('province');
-                const codePostalElement = document.getElementById('codepostal');
+                const adresseElement = document.getElementById("adresse");
+                const villeElement = document.getElementById("ville");
+                const provinceElement = document.getElementById("province");
+                const codePostalElement = document.getElementById("codepostal");
                 const adresseValide = validerChamp(adresseElement);
                 const villeValide = validerChamp(villeElement);
                 const provinceValide = validerChamp(provinceElement);
                 const codePostalValide = validerChamp(codePostalElement);
-                if (adresseValide && villeValide && provinceValide && codePostalValide) {
+                if (adresseValide &&
+                    villeValide &&
+                    provinceValide &&
+                    codePostalValide) {
                     etapeValide = true;
                 }
                 break;
             // Étape 4 : Informations de paiement
+            // Si tout est bien rempli, alors l’étape est retournée comme valide (true)
             case 3:
-                const carteElement = document.getElementById('carte');
-                const dateElement = document.getElementById('date');
-                const cvcElement = document.getElementById('cvc');
+                const carteElement = document.getElementById("carte");
+                const dateElement = document.getElementById("date");
+                const cvcElement = document.getElementById("cvc");
                 const carteValide = validerChamp(carteElement);
                 const dateValide = validerChamp(dateElement);
                 const cvcValide = validerChamp(cvcElement);
@@ -141,6 +172,16 @@ function initialiser() {
         }
         return etapeValide;
     }
+    // Ajouter la validation au change du champ carte de crédit (change : si on ne met pas tt un message apparait)
+    function validationCarteChange() {
+        const champCarte = document.getElementById("carte");
+        if (champCarte) {
+            champCarte.addEventListener("change", function () {
+                validerChamp(champCarte);
+            });
+        }
+    }
+    // Autre montant
     //Cette fonction à été realiseé avec l'aide de L'IA. Car je n'arrivais pas à faire en sorte d'enlever le montant dans "autre montant" quand on cliquait sur une radio et inversement.
     function gererAutreMontant() {
         // On récupère toutes les radios
@@ -162,6 +203,12 @@ function initialiser() {
             });
         });
     }
+    // Navigation entre les liens
+    /**
+     * Savoir à qu'elle étape on est rendu
+     * Cliquer sur une étape précédente, mais pas une étape suivante
+     * Afficher l'étape qui a été cliquée
+     */
     //pouvoir naviguer entre les liens en fonction des étapes
     function naviguerEtape(event) {
         const etapeElement = event.currentTarget;
@@ -171,7 +218,7 @@ function initialiser() {
             afficherEtape();
         }
     }
-    //activer la couleur des liens en fonction de l'étape
+    //Mettre à jour les boutons de navigation (changer les couleurs selon que l’étape est validée ou non)
     function activerLienCouleur() {
         for (let i = 0; i < navLien.length; i++) {
             if (i <= etape) {
@@ -186,14 +233,15 @@ function initialiser() {
             }
         }
     }
-    // Afficher l’étape courante
+    // Afficher l’étape actuelle et cacher les autres
     function afficherEtape() {
         cacherFieldset();
         if (etape >= 0 && etape < fieldsets.length) {
             fieldsets[etape].classList.remove("cacher");
         }
         activerLienCouleur();
-        // Affichage et masquage des boutons
+        validationCarteChange();
+        // Affichage et masquage des boutons en fonction des étapes
         if (etape === 0) {
             btnSuivant?.classList.remove("cacher");
             btnFaireUnDon?.classList.add("cacher");
@@ -214,6 +262,7 @@ function initialiser() {
     // Boutons de navigation
     btnSuivant?.addEventListener("click", boutonSuivant);
     btnPrecedent?.addEventListener("click", boutonPrecedent);
+    // Bouton "Suivant" pour afficher les étapes suivantes
     function boutonSuivant() {
         const etapeValide = validerEtape(etape);
         if (etapeValide) {
@@ -223,13 +272,14 @@ function initialiser() {
             }
         }
     }
+    // Bouton "Précédent" pour afficher les étapes précédentes
     function boutonPrecedent() {
         if (etape > 0) {
             etape--;
             afficherEtape();
         }
     }
-    // Afficher le récapitulatif
+    // Afficher le récapitulatif (dernière étape)
     function afficherRecapitulatif() {
         // Récupérer les valeurs des champs du formulaire
         const recapitulatif = document.getElementById("etape5");
@@ -254,6 +304,7 @@ function initialiser() {
         const codePostalRecap = codePostal.value;
         const numeroCarte = document.getElementById("carte");
         const numeroCarteRecap = numeroCarte.value;
+        const carteSubstring = numeroCarteRecap.substring(11, 15);
         //Prendre chaque balise p dans le html et y insérer les valeurs
         const recapHTML = recapitulatif.querySelectorAll("p");
         recapHTML[0].innerHTML = "Nom : " + nomRecap;
@@ -261,7 +312,7 @@ function initialiser() {
         recapHTML[2].innerHTML = "Montant du don : " + montantAfficher + "$";
         recapHTML[3].innerHTML = "Email : " + emailRecap;
         recapHTML[4].innerHTML = "Code postal : " + codePostalRecap;
-        recapHTML[5].innerHTML = "Numéro de carte : " + numeroCarteRecap;
+        recapHTML[5].innerHTML = "Numéro de carte finnisant par : " + carteSubstring;
     }
     // Debuter l’affichage
     afficherEtape();

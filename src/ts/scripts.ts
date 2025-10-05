@@ -1,7 +1,15 @@
 "use strict";
 
-
 // Au chargement de la page
+/**
+/**
+ * Obtenir les messages d’erreur
+ * Récupérer les boutons et les fieldsets en HTML
+ * Créer une fonction pour cacher/afficher les fieldsets selon l’étape
+ * Changer la couleur du premier élément dans la navigation au chargement de la page et empêcher d'aller sur les autres étapes
+ * Appeler la fonction gererAutreMontant pour la lancer dès le début
+ */
+
 function initialiser() {
   obtenirMessage();
   // Boutons
@@ -19,235 +27,298 @@ function initialiser() {
       fieldset.classList.add("cacher");
     });
 
-    // mettre au chargement de la page sur la premiere page le numéro en rose et impossible d'aller sur les autres pages
+    // Mettre au chargement de la page sur la premiere page le numéro en rose et impossible d'aller sur les autres pages
     for (let i = 0; i < navLien.length; i++) {
-  const lien = navLien[i];
+      const lien = navLien[i];
 
-  if (i === 0) {
-    lien.classList.remove("navigation__item--inactive");
-    lien.classList.add("navigation__item--active");
-    lien.setAttribute("aria-disabled", "false");
-  } else {
-    lien.classList.remove("navigation__item--active");
-    lien.classList.add("navigation__item--inactive");
-    lien.setAttribute("aria-disabled", "true");
+      if (i === 0) {
+        lien.classList.remove("navigation__item--inactive");
+        lien.classList.add("navigation__item--active");
+        lien.setAttribute("aria-disabled", "false");
+      } else {
+        lien.classList.remove("navigation__item--active");
+        lien.classList.add("navigation__item--inactive");
+        lien.setAttribute("aria-disabled", "true");
+      }
+
+      lien.addEventListener("click", naviguerEtape);
+      gererAutreMontant();
+    }
   }
 
-  lien.addEventListener("click", naviguerEtape);
-  gererAutreMontant();
-  
-}
-  }
-
-
-// Validation des champs
-interface messageErreur {
+  // Validation des champs (code donné par le prof)
+  interface messageErreur {
     vide?: string;
     pattern?: string;
     type?: string;
-}
-interface erreursJSON {
+  }
+  interface erreursJSON {
     [fieldName: string]: messageErreur;
-}
-let messagesJSON:erreursJSON;
+  }
+  let messagesJSON: erreursJSON;
 
-// Récupérer les messages d'erreur à partir du fichier JSON
-async function obtenirMessage(){
-  const reponse = await fetch("objJSONMessages.json");
-  messagesJSON = await reponse.json();
-}
+  // Récupérer les messages d'erreur à partir du fichier JSON
+  async function obtenirMessage() {
+    const reponse = await fetch("objJSONMessages.json");
+    messagesJSON = await reponse.json();
+  }
 
-// Valider un champ individuel
-function validerChamp(champ:HTMLInputElement): boolean {
-    
+  // Valider les champs individuellement
+  /**
+   * Prendre un champ à la fois et lui attribuer un message d’erreur spécifique
+   * Vérifier chaque type d’erreur de validation
+   * Exemple : type de données incorrect (email, Nom, téléphone, etc.)
+   * Ne correspond pas au pattern regex défini
+   * Retourner "valide" si le champ n’a plus d’erreurs (true)
+   */
+
+  function validerChamp(champ: HTMLInputElement): boolean {
     let valide = false;
-    const id = champ.id; // email
-    const idMessageErreur = "erreur-" + id; // erreur-email
-    const erreurElement = document.getElementById(idMessageErreur) as HTMLElement;
-
-    console.log('valider champ', champ.id, champ.validity);
-    
+    const id = champ.id;
+    const idMessageErreur = "erreur-" + id;
+    const erreurElement = document.getElementById(
+      idMessageErreur
+    ) as HTMLElement;
 
     // Vérifie chaque type d'erreur de validation
     if (champ.validity.valueMissing && messagesJSON[id].vide) {
-        console.log('erreur', id);
-        console.log("message", messagesJSON[id].vide, erreurElement);
+      console.log("erreur", id);
+      console.log("message", messagesJSON[id].vide, erreurElement);
 
-        valide = false;
-        erreurElement.innerText = messagesJSON[id].vide;
-        
+      valide = false;
+      erreurElement.innerText = messagesJSON[id].vide;
     } else if (champ.validity.typeMismatch && messagesJSON[id].type) {
-        // Type de données incorrect (email, url, tel, etc.)
-        valide = false;
-        erreurElement.innerText = messagesJSON[id].type;
-
+      // Type de données incorrect (email, url, tel, etc.)
+      valide = false;
+      erreurElement.innerText = messagesJSON[id].type;
     } else if (champ.validity.patternMismatch && messagesJSON[id].pattern) {
-        // Ne correspond pas au pattern regex défini
-        valide = false;
-        erreurElement.innerText = messagesJSON[id].pattern;
-
-    }else{
-        valide = true;
-        erreurElement.innerText = "";
+      // Ne correspond pas au pattern regex défini
+      valide = false;
+      erreurElement.innerText = messagesJSON[id].pattern;
+    } else {
+      valide = true;
+      erreurElement.innerText = "";
     }
 
     return valide;
-}
+  }
 
-// Valider une étape complète
-function validerEtape(etape: number): boolean {
+  // Valider une étape complète
+  /**
+   * Valider une étape à la fois (une par case)
+   * Prendre tous les éléments HTML puis les convertir dans une variable
+   * Vérifier si les boutons radio sont cochés (checked)
+   * Si tout est bien coché, alors l’étape est retournée comme valide (true)
+   */
+
+  function validerEtape(etape: number): boolean {
     let etapeValide = false;
 
-    switch(etape) {
+    switch (etape) {
       // Étape 1 : Choix du montant
       case 0:
-            const montantUnique = document.getElementById("unique")as HTMLInputElement;
-            const montantMensuelle = document.getElementById("mensuelle")as HTMLInputElement;
-            const erreurDuree = document.getElementById("erreur-duree")as HTMLElement;
+        const montantUnique = document.getElementById(
+          "unique"
+        ) as HTMLInputElement;
+        const montantMensuelle = document.getElementById(
+          "mensuelle"
+        ) as HTMLInputElement;
+        const erreurDuree = document.getElementById(
+          "erreur-duree"
+        ) as HTMLElement;
 
-            const montantPrix1 = document.getElementById("prix1")as HTMLInputElement;
-            const montantPrix2 = document.getElementById("prix2")as HTMLInputElement;
-            const montantPrix3 = document.getElementById("prix3")as HTMLInputElement;
-            const montantPrix4 = document.getElementById("prix4")as HTMLInputElement;
-            const montantPrix5 = document.getElementById("prix5")as HTMLInputElement;
-            const montantPrix6 = document.getElementById("prix6")as HTMLInputElement;
-            const autreMontant = document.getElementById("facultatif") as HTMLInputElement;
+        const montantPrix1 = document.getElementById(
+          "prix1"
+        ) as HTMLInputElement;
+        const montantPrix2 = document.getElementById(
+          "prix2"
+        ) as HTMLInputElement;
+        const montantPrix3 = document.getElementById(
+          "prix3"
+        ) as HTMLInputElement;
+        const montantPrix4 = document.getElementById(
+          "prix4"
+        ) as HTMLInputElement;
+        const montantPrix5 = document.getElementById(
+          "prix5"
+        ) as HTMLInputElement;
+        const montantPrix6 = document.getElementById(
+          "prix6"
+        ) as HTMLInputElement;
+        const autreMontant = document.getElementById(
+          "facultatif"
+        ) as HTMLInputElement;
 
+        let dureeValide = false;
+        let montantValide = false;
 
+        if (montantUnique.checked || montantMensuelle.checked) {
+          dureeValide = true;
+          erreurDuree.innerText = "";
+        }
 
-            let dureeValide = false;
-            let montantValide = false;
+        if (
+          montantPrix1.checked ||
+          montantPrix2.checked ||
+          montantPrix3.checked ||
+          montantPrix4.checked ||
+          montantPrix5.checked ||
+          montantPrix6.checked
+        ) {
+          montantValide = true;
+        } else if (autreMontant.value !== "") {
+          montantValide = true;
+        }
 
-            
-            if(montantUnique.checked || montantMensuelle.checked){
-              dureeValide = true;
-              erreurDuree.innerText = "";
-            }
-
-            if(montantPrix1.checked || montantPrix2.checked || montantPrix3.checked || montantPrix4.checked || montantPrix5.checked || montantPrix6.checked){
-              montantValide = true;
-            }else if(autreMontant.value !== ""){
-              montantValide = true;
-            }
-
-            if(dureeValide && montantValide){
-              etapeValide = true;
-            }
+        if (dureeValide && montantValide) {
+          etapeValide = true;
+        }
 
         break;
       // Étape 2 : Informations personnelles
-        case 1:
-          const nomElement = document.getElementById('nom') as HTMLInputElement;
-          const prenomElement = document.getElementById('prenom') as HTMLInputElement;
-          const emailElement = document.getElementById('courriel') as HTMLInputElement;
-          const telephoneElement = document.getElementById('telephone') as HTMLInputElement;
+      // Si tout est bien rempli, alors l’étape est retournée comme valide (true)
+      case 1:
+        const nomElement = document.getElementById("nom") as HTMLInputElement;
+        const prenomElement = document.getElementById(
+          "prenom"
+        ) as HTMLInputElement;
+        const emailElement = document.getElementById(
+          "courriel"
+        ) as HTMLInputElement;
+        const telephoneElement = document.getElementById(
+          "telephone"
+        ) as HTMLInputElement;
 
+        const nomValide = validerChamp(nomElement);
+        const prenomValide = validerChamp(prenomElement);
+        const emailValide = validerChamp(emailElement);
+        const telephoneValide = validerChamp(telephoneElement);
 
-          const nomValide  = validerChamp(nomElement);
-          const prenomValide = validerChamp(prenomElement);
-          const emailValide = validerChamp(emailElement);
-          const telephoneValide = validerChamp(telephoneElement);
+        if (nomValide && prenomValide && emailValide && telephoneValide) {
+          etapeValide = true;
+        }
 
-          if (nomValide && prenomValide && emailValide && telephoneValide) {
-              etapeValide = true;
-          } 
-          
+        break;
+      // Étape 3 : Adresse civile
+      // Si tout est bien rempli, alors l’étape est retournée comme valide (true)
+      case 2:
+        const adresseElement = document.getElementById(
+          "adresse"
+        ) as HTMLInputElement;
+        const villeElement = document.getElementById(
+          "ville"
+        ) as HTMLInputElement;
+        const provinceElement = document.getElementById(
+          "province"
+        ) as HTMLInputElement;
+        const codePostalElement = document.getElementById(
+          "codepostal"
+        ) as HTMLInputElement;
 
-    break;
-    // Étape 3 : Adresse
-    case 2:
-      const adresseElement = document.getElementById('adresse') as HTMLInputElement;
-      const villeElement = document.getElementById('ville') as HTMLInputElement;
-      const provinceElement = document.getElementById('province') as HTMLInputElement;
-      const codePostalElement = document.getElementById('codepostal') as HTMLInputElement;
+        const adresseValide = validerChamp(adresseElement);
+        const villeValide = validerChamp(villeElement);
+        const provinceValide = validerChamp(provinceElement);
+        const codePostalValide = validerChamp(codePostalElement);
 
+        if (
+          adresseValide &&
+          villeValide &&
+          provinceValide &&
+          codePostalValide
+        ) {
+          etapeValide = true;
+        }
 
-      const adresseValide  = validerChamp(adresseElement);
-      const villeValide = validerChamp(villeElement);
-      const provinceValide = validerChamp(provinceElement);
-      const codePostalValide = validerChamp(codePostalElement);
-    
+        break;
+      // Étape 4 : Informations de paiement
+      // Si tout est bien rempli, alors l’étape est retournée comme valide (true)
+      case 3:
+        const carteElement = document.getElementById(
+          "carte"
+        ) as HTMLInputElement;
+        const dateElement = document.getElementById("date") as HTMLInputElement;
+        const cvcElement = document.getElementById("cvc") as HTMLInputElement;
 
-    if(adresseValide && villeValide && provinceValide && codePostalValide){
-      etapeValide = true;
-      
+        const carteValide = validerChamp(carteElement);
+        const dateValide = validerChamp(dateElement);
+        const cvcValide = validerChamp(cvcElement);
+
+        if (carteValide && dateValide && cvcValide) {
+          etapeValide = true;
+        }
     }
-    
-
-    break;
-    // Étape 4 : Informations de paiement
-  case 3:
-
-    const carteElement = document.getElementById('carte') as HTMLInputElement;
-    const dateElement = document.getElementById('date') as HTMLInputElement;
-    const cvcElement = document.getElementById('cvc') as HTMLInputElement;
-
-    const carteValide  = validerChamp(carteElement);
-    const dateValide = validerChamp(dateElement);
-    const cvcValide = validerChamp(cvcElement);
-
-
-    if(carteValide && dateValide && cvcValide){
-      etapeValide = true;
-    }
-  }  
     return etapeValide;
-}
+  }
 
-//Cette fonction à été realiseé avec l'aide de L'IA. Car je n'arrivais pas à faire en sorte d'enlever le montant dans "autre montant" quand on cliquait sur une radio et inversement.
-function gererAutreMontant() {
-  // On récupère toutes les radios
-  const radiosMontant = document.querySelectorAll('input[name="montant"]');
-  // On récupère le champ "autre montant"
-  const inputAutre = document.getElementById("facultatif");
-
-  // Quand l'utilisateur tape quelque chose dans "autre montant"
-  inputAutre.addEventListener("input", function() {
-    // On décoche toutes les radios
-    radiosMontant.forEach(function(radio) {
-      radio.checked = false;
-    });
-  });
-
-  // Quand l'utilisateur clique sur une radio
-  radiosMontant.forEach(function(radio) {
-    radio.addEventListener("click", function() {
-      // On vide le champ "autre montant"
-      inputAutre.value = "";
-    });
-  });
-}
-
-
-    //pouvoir naviguer entre les liens en fonction des étapes
-    function naviguerEtape(event:Event){
-      const etapeElement = event.currentTarget;
-      let numero = parseInt(etapeElement.dataset.etape) - 1;
-      
-      if(numero <= etape){
-        etape = numero;
-        afficherEtape();
-      }
-    }
-
-
-  //activer la couleur des liens en fonction de l'étape
-  function activerLienCouleur() {
-  for (let i = 0; i < navLien.length; i++) {
-    if (i <= etape) {
-      navLien[i].classList.add("navigation__item--active");
-      navLien[i].classList.remove("navigation__item--inactive");
-      navLien[i].setAttribute("aria-disabled", "false");
-    } else {
-      navLien[i].classList.add("navigation__item--inactive");
-      navLien[i].classList.remove("navigation__item--active");
-      navLien[i].setAttribute("aria-disabled", "true");
+  // Ajouter la validation au change du champ carte de crédit (change : si on ne met pas tout les éléments un message apparait)
+  function validationCarteChange() {
+    const champCarte = document.getElementById("carte") as HTMLInputElement;
+    if (champCarte) {
+      champCarte.addEventListener("change", function () {
+        validerChamp(champCarte);
+      });
     }
   }
-}
 
+  // Autre montant
+  //Cette fonction à été realiseé avec l'aide de L'IA. Car je n'arrivais pas à faire en sorte d'enlever le montant dans "autre montant" quand on cliquait sur un prix radio et inversement.
+  function gererAutreMontant() {
+    // On récupère toutes les radios
+    const radiosMontant = document.querySelectorAll('input[name="montant"]');
+    // On récupère le champ "autre montant"
+    const inputAutre = document.getElementById("facultatif");
 
-  // Afficher l’étape courante
+    // Quand l'utilisateur tape quelque chose dans "autre montant"
+    inputAutre.addEventListener("input", function () {
+      // On décoche toutes les radios
+      radiosMontant.forEach(function (radio) {
+        radio.checked = false;
+      });
+    });
+
+    // Quand l'utilisateur clique sur une radio
+    radiosMontant.forEach(function (radio) {
+      radio.addEventListener("click", function () {
+        // On vide le champ "autre montant"
+        inputAutre.value = "";
+      });
+    });
+  }
+
+  // Navigation entre les liens
+  /**
+   * Savoir à qu'elle étape on est rendu
+   * Cliquer sur une étape précédente, mais pas une étape suivante
+   * Afficher l'étape qui a été cliquée
+   */
+
+  //pouvoir naviguer entre les liens en fonction des étapes
+  function naviguerEtape(event: Event) {
+    const etapeElement = event.currentTarget;
+    let numero = parseInt(etapeElement.dataset.etape) - 1;
+
+    if (numero <= etape) {
+      etape = numero;
+      afficherEtape();
+    }
+  }
+
+  //Mettre à jour les boutons de navigation (changer les couleurs selon que l’étape est validée ou non)
+  function activerLienCouleur() {
+    for (let i = 0; i < navLien.length; i++) {
+      if (i <= etape) {
+        navLien[i].classList.add("navigation__item--active");
+        navLien[i].classList.remove("navigation__item--inactive");
+        navLien[i].setAttribute("aria-disabled", "false");
+      } else {
+        navLien[i].classList.add("navigation__item--inactive");
+        navLien[i].classList.remove("navigation__item--active");
+        navLien[i].setAttribute("aria-disabled", "true");
+      }
+    }
+  }
+
+  // Afficher l’étape actuelle et cacher les autres
   function afficherEtape() {
     cacherFieldset();
 
@@ -255,7 +326,8 @@ function gererAutreMontant() {
       fieldsets[etape].classList.remove("cacher");
     }
     activerLienCouleur();
-    // Affichage et masquage des boutons
+    validationCarteChange();
+    // Affichage et masquage des boutons en fonction des étapes
     if (etape === 0) {
       btnSuivant?.classList.remove("cacher");
       btnFaireUnDon?.classList.add("cacher");
@@ -276,62 +348,69 @@ function gererAutreMontant() {
   btnSuivant?.addEventListener("click", boutonSuivant);
   btnPrecedent?.addEventListener("click", boutonPrecedent);
 
+  // Bouton "Suivant" pour afficher les étapes suivantes
   function boutonSuivant() {
     const etapeValide = validerEtape(etape);
-      if(etapeValide){
-        if (etape < fieldsets.length - 1) {
-          etape++;
-          afficherEtape();
-          }
-      }  
+    if (etapeValide) {
+      if (etape < fieldsets.length - 1) {
+        etape++;
+        afficherEtape();
+      }
+    }
   }
 
+  // Bouton "Précédent" pour afficher les étapes précédentes
   function boutonPrecedent() {
     if (etape > 0) {
       etape--;
       afficherEtape();
     }
   }
-  
-  // Afficher le récapitulatif
-function afficherRecapitulatif() {
-  // Récupérer les valeurs des champs du formulaire
-  const recapitulatif = document.getElementById("etape5") as HTMLElement;
-  const nom = document.getElementById("nom") as HTMLInputElement;
-  const nomRecap = nom.value;
-  const prenom = document.getElementById("prenom") as HTMLInputElement;
-  const prenomRecap = prenom.value;
 
-  const montantDon = document.querySelector('input[name="montant"]:checked') as HTMLInputElement;
-  const montantFacultatif = document.getElementById("facultatif") as HTMLInputElement;
+  // Afficher le récapitulatif (dernière étape)
+  function afficherRecapitulatif() {
+    // Récupérer les valeurs des champs du formulaire
+    const recapitulatif = document.getElementById("etape5") as HTMLElement;
+    const nom = document.getElementById("nom") as HTMLInputElement;
+    const nomRecap = nom.value;
+    const prenom = document.getElementById("prenom") as HTMLInputElement;
+    const prenomRecap = prenom.value;
 
-  // Choisir le montant à afficher entre le montant sélectionné par defaut ou non et le montant facultatif
-  let montantAfficher = "";
-  if (montantFacultatif.value) {
-    montantAfficher = montantFacultatif.value;
-  } else if (montantDon) {
-    montantAfficher = montantDon.value;
+    const montantDon = document.querySelector(
+      'input[name="montant"]:checked'
+    ) as HTMLInputElement;
+    const montantFacultatif = document.getElementById(
+      "facultatif"
+    ) as HTMLInputElement;
+
+    // Choisir le montant à afficher entre le montant sélectionné par defaut ou non et le montant facultatif
+    let montantAfficher = "";
+    if (montantFacultatif.value) {
+      montantAfficher = montantFacultatif.value;
+    } else if (montantDon) {
+      montantAfficher = montantDon.value;
+    }
+
+    // Récupérer les valeurs des autres champs
+    const email = document.getElementById("courriel") as HTMLInputElement;
+    const emailRecap = email.value;
+    const codePostal = document.getElementById(
+      "codepostal"
+    ) as HTMLInputElement;
+    const codePostalRecap = codePostal.value;
+    const numeroCarte = document.getElementById("carte") as HTMLInputElement;
+    const numeroCarteRecap = numeroCarte.value;
+    const carteSubstring = numeroCarteRecap.substring(11, 15);
+
+    //Prendre chaque balise p dans le html et y insérer les valeurs
+    const recapHTML = recapitulatif.querySelectorAll("p");
+    recapHTML[0].innerHTML = "Nom : " + nomRecap;
+    recapHTML[1].innerHTML = "Prénom : " + prenomRecap;
+    recapHTML[2].innerHTML = "Montant du don : " + montantAfficher + "$";
+    recapHTML[3].innerHTML = "Email : " + emailRecap;
+    recapHTML[4].innerHTML = "Code postal : " + codePostalRecap;
+    recapHTML[5].innerHTML = "Numéro de carte finnisant par : " + carteSubstring;
   }
-
-  // Récupérer les valeurs des autres champs
-  const email = document.getElementById("courriel") as HTMLInputElement;
-  const emailRecap = email.value;
-  const codePostal = document.getElementById("codepostal") as HTMLInputElement;
-  const codePostalRecap = codePostal.value;
-  const numeroCarte = document.getElementById("carte") as HTMLInputElement;
-  const numeroCarteRecap = numeroCarte.value;
-
-  //Prendre chaque balise p dans le html et y insérer les valeurs
-  const recapHTML = recapitulatif.querySelectorAll("p");
-  recapHTML[0].innerHTML = "Nom : " + nomRecap;
-  recapHTML[1].innerHTML = "Prénom : " + prenomRecap;
-  recapHTML[2].innerHTML = "Montant du don : " + montantAfficher + "$";
-  recapHTML[3].innerHTML = "Email : " + emailRecap;
-  recapHTML[4].innerHTML = "Code postal : " + codePostalRecap;
-  recapHTML[5].innerHTML = "Numéro de carte : " + numeroCarteRecap;
-}
-
-
 
   // Debuter l’affichage
   afficherEtape();
